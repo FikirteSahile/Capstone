@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="user_json" format="json">
+      <types:shape format="weave" example="alluser.json"><![CDATA[%dw 2.0
+
+type user_json = Array<{|  id: String,   first: String,   last: String,   department: String|}> {"example": "[{\"id\":\"1\",\"first\":\"Adam\",\"last\":\"Bob\",\"department\":\"IIB\"},{\"id\":\"2\",\"first\":\"John\",\"last\":\"Doe\",\"department\":\"Acc\"}]"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="userdel_text" format="java">
+      <types:shape format="raml"><![CDATA[#%RAML 1.0 DataType
+type: string]]></types:shape>
+    </types:type>
+  </types:catalog>
+  <types:enrichment select="#7388fe8c-7557-4754-bc8f-728d572f5f30">
+    <types:processor-declaration>
+      <types:output-event>
+        <types:message>
+          <types:payload type="user_json"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#b6c5ffb1-6085-4522-9bc3-67a02a60669a"/>
+  <types:enrichment select="#3c648584-5f4f-4efc-9350-3dd1af6b365a">
+    <types:processor-declaration>
+      <types:output-event>
+        <types:message>
+          <types:payload type="user_json"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#31c68123-5a74-481e-a485-c57ee3fe394e"/>
+</types:mule>
